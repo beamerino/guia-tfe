@@ -1,0 +1,106 @@
+site_name: Cómo hacer un buen trabajo fin de titulación
+site_description: Guía práctica para estudiantes de TFG, TFM, TFT y TFE, por Beatriz Merino-Barbancho
+site_author: Beatriz Merino-Barbancho
+site_url: https://beamerino.github.io/guia-tfe/
+copyright: '© Beatriz Merino-Barbancho · Ingeniería, datos y personas para una salud más conectada.<br>Contenido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">CC BY-NC-SA 4.0</a>: puedes compartirlo y adaptarlo citando la autoría, sin fines comerciales y con la misma licencia.'
+
+theme:
+  name: material
+  language: es
+  font:
+    text: Instrument Sans
+    code: DM Mono
+  logo: assets/marca/simbolo-hielo.svg
+  favicon: assets/marca/simbolo-indigo.svg
+  palette:
+    scheme: default
+    primary: custom
+    accent: custom
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - navigation.tracking
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.tooltips
+
+extra_css:
+  - assets/stylesheets/marca.css
+extra_javascript:
+  - assets/javascripts/mermaid.min.js
+  - assets/javascripts/checklist.js
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: es
+          default: true
+          name: Español
+          build: true
+        - locale: en
+          name: English
+          build: true
+          site_name: How to write a good final degree project
+          site_description: A practical guide for bachelor's and master's thesis students, by Beatriz Merino-Barbancho
+          copyright: '© Beatriz Merino-Barbancho · Engineering, data and people for better-connected health.<br>Content licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>: you may share and adapt it with attribution, for non-commercial purposes, under the same licence.'
+          nav_translations:
+            El proceso: The process
+            La memoria: The thesis document
+            La defensa: The defence
+            Recursos: Resources
+
+nav:
+  - index.md
+  - El proceso:
+      - tema.md
+      - planificacion.md
+      - estado-del-arte.md
+      - bibliografia.md
+      - metodologia.md
+  - La memoria:
+      - estructura.md
+      - redaccion.md
+      - ia.md
+  - La defensa:
+      - defensa.md
+  - Recursos:
+      - plantillas.md
+      - checklist.md
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.mark
+  - pymdownx.keys
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: true

@@ -1,0 +1,16 @@
+site/
+__pycache__/
+.DS_Store
+*.aux
+*.log
+*.bbl
+*.blg
+*.bcf
+*.fdb_latexmk
+*.fls
+*.out
+*.run.xml
+*.toc
+node_modules/
+package-lock.json
+docs/assets/javascripts/mermaid.min.js
