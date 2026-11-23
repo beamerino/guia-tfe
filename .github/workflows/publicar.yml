@@ -1,0 +1,68 @@
+name: Publicar la guía
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt openpyxl
+          npm install --no-save --no-audit --no-fund docx@9 mermaid@11
+
+      - name: Generar plantillas (Word, LaTeX y Excel)
+        # Si has subido tu propia versión de una plantilla a docs/descargas
+        # con el mismo nombre, se respeta la tuya y no se sobrescribe.
+        run: |
+          mkdir -p /tmp/plantillas docs/descargas
+          node plantillas-fuente/word/generar.js /tmp/plantillas
+          python plantillas-fuente/latex/generar.py /tmp/plantillas
+          python plantillas-fuente/excel/generar.py /tmp/plantillas
+          for f in /tmp/plantillas/*.docx /tmp/plantillas/*.xlsx /tmp/plantillas/*.zip; do
+            [ -e "docs/descargas/$(basename "$f")" ] || cp "$f" docs/descargas/
+          done
+          ls -la docs/descargas
+
+      - name: Copiar Mermaid (diagramas)
+        run: '[ -e docs/assets/javascripts/mermaid.min.js ] || cp node_modules/mermaid/dist/mermaid.min.js docs/assets/javascripts/'
+
+      - run: mkdocs build
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4
