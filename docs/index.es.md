@@ -79,7 +79,7 @@ hide:
   <img class="autora-simbolo" src="assets/marca/simbolo-indigo.svg" alt="">
   <div>
     <p class="etiqueta"><span class="guion"></span>Quién escribe esta guía</p>
-    <p><strong>Beatriz Merino-Barbancho</strong>, ingeniera biomédica y doctora, investigadora y gestora de proyectos en salud digital e inteligencia artificial. Ha dirigido trabajos fin de titulación en varias universidades.</p>
+    <p><strong>Beatriz Merino-Barbancho</strong>, doctora en ingeniería biomédica, docente universitaria, investigadora y gestora de proyectos de innovación en salud digital e inteligencia artificial. Ha dirigido trabajos fin de titulación en varias universidades.</p>
     <p class="lema">Ingeniería, datos y personas para una salud más conectada.</p>
   </div>
 </section>
