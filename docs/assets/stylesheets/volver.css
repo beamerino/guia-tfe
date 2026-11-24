@@ -1,51 +1,103 @@
-/* ---------- Botones «Volver» e «Inicio» ---------- */
-.volver {
+/* ---------- Botones «Volver» e «Inicio» (en la cabecera, siempre visibles) ---------- */
+.md-header .volver {
   display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
-  margin: 0 0 1.2rem;
-}
-.volver-boton {
-  display: inline-flex;
   align-items: center;
   gap: .4rem;
-  padding: .38rem .9rem;
+  margin: 0 .2rem 0 .6rem;
+  flex-shrink: 0;
+}
+.md-header .volver-boton {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .75rem .3rem .6rem;
   border-radius: 999px;
-  font-size: .72rem;
+  font-size: .68rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, .10);
+  border: 1px solid rgba(201, 215, 230, .45);
   text-decoration: none;
+  white-space: nowrap;
   transition: background-color .15s, color .15s, border-color .15s;
 }
-.md-typeset .volver-atras,
-.volver-atras {
+.md-header .volver-boton svg {
+  width: .9rem;
+  height: .9rem;
+  flex: none;
+}
+.md-header .volver-atras {
+  color: #0E0C16;
+  background: #C9D7E6;
+  border-color: #C9D7E6;
+}
+.md-header .volver-boton:hover,
+.md-header .volver-boton:focus-visible {
   color: #2A2563;
-  background: #EAF0F6;
-  border: 1px solid #C9D7E6;
+  background: #FFFFFF;
+  border-color: #FFFFFF;
 }
-.md-typeset .volver-atras:hover,
-.volver-atras:hover,
-.volver-atras:focus-visible {
-  color: #fff;
-  background: #2A2563;
-  border-color: #2A2563;
-}
-.md-typeset .volver-inicio,
-.volver-inicio {
-  color: #2A2563;
-  background: transparent;
-  border: 1px solid #C9D7E6;
-}
-.md-typeset .volver-inicio:hover,
-.volver-inicio:hover,
-.volver-inicio:focus-visible {
-  background: #EAF0F6;
-  border-color: #2A2563;
-}
-.volver-boton:focus-visible {
-  outline: 2px solid #55688F;
+.md-header .volver-boton:focus-visible {
+  outline: 2px solid #C9D7E6;
   outline-offset: 2px;
 }
+/* En pantallas estrechas, solo los iconos */
+@media screen and (max-width: 44.9375em) {
+  .md-header .volver { margin-left: .2rem; gap: .3rem; }
+  .md-header .volver-boton { padding: .4rem; }
+  .md-header .volver-texto {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
+}
 @media print {
-  .volver { display: none; }
+  .md-header .volver { display: none; }
+}
+
+/* ---------- Índice de la derecha: resaltar por dónde vas ---------- */
+.md-sidebar--secondary .md-nav__title {
+  color: #2A2563;
+  font-weight: 700;
+}
+.md-sidebar--secondary .md-nav__list a.md-nav__link {
+  margin-top: 0;
+  padding: .32rem .6rem .32rem .7rem;
+  border-left: 3px solid #E3E6EE;
+  color: #5B5A66;
+  line-height: 1.35;
+  transition: color .15s, background-color .15s, border-color .15s;
+}
+/* Subapartados (h3) con un poco de sangría */
+.md-sidebar--secondary .md-nav__list .md-nav__list a.md-nav__link {
+  padding-left: 1.4rem;
+  font-size: .95em;
+}
+/* Lo que ya has leído: más tenue, con la línea en azul hielo */
+.md-sidebar--secondary .md-nav__list a.md-nav__link.md-nav__link--passed {
+  color: #8E90A3;
+  border-left-color: #C9D7E6;
+}
+/* El apartado que contiene la sección actual */
+.md-sidebar--secondary .md-nav__item:has(> .md-nav a.md-nav__link--active) > a.md-nav__link {
+  color: #2A2563;
+  font-weight: 600;
+  border-left-color: #55688F;
+}
+/* La sección en la que estás ahora */
+.md-sidebar--secondary .md-nav__list a.md-nav__link.md-nav__link--active {
+  color: #2A2563;
+  font-weight: 700;
+  background: #EAF0F6;
+  border-left: 4px solid #2A2563;
+  border-radius: 0 .3rem .3rem 0;
+}
+.md-sidebar--secondary .md-nav__list a.md-nav__link:hover {
+  color: #2A2563;
+}
+
+/* ---------- Índice de la izquierda: página actual más visible ---------- */
+.md-sidebar--primary .md-nav__link--active {
+  color: #2A2563;
+  font-weight: 700;
 }

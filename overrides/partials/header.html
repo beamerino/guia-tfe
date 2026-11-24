@@ -1,0 +1,88 @@
+{#-
+  Copia de partials/header.html de Material for MkDocs con los botones «Volver» e «Inicio».
+-#}
+{% set class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+  {% set class = class ~ " md-header--shadow md-header--lifted" %}
+{% elif "navigation.tabs" not in features %}
+  {% set class = class ~ " md-header--shadow" %}
+{% endif %}
+<header class="{{ class }}" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
+    <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
+      {% include "partials/logo.html" %}
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      {% set icon = config.theme.icon.menu or "material/menu" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+    </label>
+    {#- Botones «Volver» e «Inicio», siempre visibles en la cabecera (añadido para la guía) -#}
+    {% if page and page.file and not page.file.src_uri.startswith("index.") %}
+      {% if config.theme.language == "en" %}
+        {% set txt_atras, txt_inicio = "Back", "Home" %}
+      {% else %}
+        {% set txt_atras, txt_inicio = "Volver", "Inicio" %}
+      {% endif %}
+      {% set url_inicio = nav.homepage.url | url %}
+      <div class="volver">
+        <a class="volver-boton volver-atras" href="{{ url_inicio }}" title="{{ txt_atras }}" data-volver>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          <span class="volver-texto">{{ txt_atras }}</span>
+        </a>
+        <a class="volver-boton volver-inicio" href="{{ url_inicio }}" title="{{ txt_inicio }}">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 2 11.5h3V21h6v-6h2v6h6v-9.5h3L12 3Z"/></svg>
+          <span class="volver-texto">{{ txt_inicio }}</span>
+        </a>
+      </div>
+    {% endif %}
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            {{ config.site_name }}
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            {% if page.meta and page.meta.title %}
+              {{ page.meta.title }}
+            {% else %}
+              {{ page.title }}
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+    {% if config.theme.palette %}
+      {% if not config.theme.palette is mapping %}
+        {% include "partials/palette.html" %}
+      {% endif %}
+    {% endif %}
+    {% if not config.theme.palette is mapping %}
+      {% include "partials/javascripts/palette.html" %}
+    {% endif %}
+    {% if config.extra.alternate %}
+      {% include "partials/alternate.html" %}
+    {% endif %}
+    {% if "material/search" in config.plugins %}
+      {% set search = config.plugins["material/search"] | attr("config") %}
+      {% if search.enabled %}
+        <label class="md-header__button md-icon" for="__search">
+          {% set icon = config.theme.icon.search or "material/magnify" %}
+          {% include ".icons/" ~ icon ~ ".svg" %}
+        </label>
+        {% include "partials/search.html" %}
+      {% endif %}
+    {% endif %}
+    {% if config.repo_url %}
+      <div class="md-header__source">
+        {% include "partials/source.html" %}
+      </div>
+    {% endif %}
+  </nav>
+  {% if "navigation.tabs.sticky" in features %}
+    {% if "navigation.tabs" in features %}
+      {% include "partials/tabs.html" %}
+    {% endif %}
+  {% endif %}
+</header>
