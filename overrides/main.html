@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if not page.file.src_uri.startswith("index.") %}
+    {% if config.theme.language == "en" %}
+      {% set txt_atras, txt_inicio, txt_nav = "Back", "Home", "Page navigation" %}
+    {% else %}
+      {% set txt_atras, txt_inicio, txt_nav = "Volver", "Inicio", "Navegación de la página" %}
+    {% endif %}
+    {% set url_inicio = nav.homepage.url | url %}
+    <nav class="volver" aria-label="{{ txt_nav }}">
+      <a class="volver-boton volver-atras" href="{{ url_inicio }}" data-volver>
+        <span aria-hidden="true">←</span> {{ txt_atras }}
+      </a>
+      <a class="volver-boton volver-inicio" href="{{ url_inicio }}">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 3 2 11.5h3V21h6v-6h2v6h6v-9.5h3L12 3Z"/></svg>
+        {{ txt_inicio }}
+      </a>
+    </nav>
+  {% endif %}
+  {{ super() }}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    /* «Volver» vuelve a la página anterior si venías de esta misma guía; si no, lleva al inicio. */
+    document.querySelectorAll("[data-volver]").forEach(function (enlace) {
+      enlace.addEventListener("click", function (evento) {
+        try {
+          var anterior = document.referrer ? new URL(document.referrer) : null;
+          if (anterior && anterior.origin === location.origin && history.length > 1) {
+            evento.preventDefault();
+            history.back();
+          }
+        } catch (e) { /* si algo falla, el enlace lleva al inicio */ }
+      });
+    });
+  </script>
+{% endblock %}

@@ -6,6 +6,7 @@ copyright: '© Beatriz Merino-Barbancho · Ingeniería, datos y personas para un
 
 theme:
   name: material
+  custom_dir: overrides
   language: es
   font:
     text: Instrument Sans
@@ -31,6 +32,7 @@ theme:
 
 extra_css:
   - assets/stylesheets/marca.css
+  - assets/stylesheets/volver.css
 extra_javascript:
   - assets/javascripts/mermaid.min.js
   - assets/javascripts/checklist.js
@@ -97,7 +99,7 @@ markdown_extensions:
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
-          class: mermaid
+        class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
